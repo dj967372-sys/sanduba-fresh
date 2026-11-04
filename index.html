@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanduba Fresh — Seu sanduíche, seu momento.</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <!-- Biblioteca do Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+    <!-- O teu script principal -->
+    
+<body data-theme="light">
+    <!-- Cabeçalho -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fa-solid fa-seedling"></i>
+                <h1>Sanduba Fresh</h1>
+            </div>
+            <nav class="nav">
+                <a href="#inicio">Início</a>
+                <a href="#cardapio">Cardápio</a>
+                <a href="#joguinho">Mini Jogo</a>
+                <a href="#avaliacoes">Avaliações</a>
+                <button id="theme-toggle" aria-label="Alternar tema"><i class="fa-solid fa-moon"></i></button>
+                <button id="cart-btn" class="cart-btn" aria-label="Carrinho">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count">0</span>
+                </button>
+                <button id="admin-login-btn" class="admin-btn" aria-label="Painel Administrativo">
+                    <i class="fa-solid fa-lock"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Início / Banner -->
+    <section id="inicio" class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <span class="badge">100% Natural e Fresquinho</span>
+                <h2>Seu sanduíche, seu momento.</h2>
+                <p>Ingredientes selecionados todos os dias para proporcionar uma refeição leve, saborosa e saudável.
+                    Peça pelo site e retire direto com a nossa equipe no WhatsApp!</p>
+                <div class="hero-buttons">
+                    <a href="#cardapio" class="btn btn-primary">Ver Cardápio</a>
+                    <a href="#joguinho" class="btn btn-outline">Jogar</a>
+                </div>
+            </div>
+           <div class="hero-image">
+    <video autoplay muted loop playsinline style="width: 350%;height: 350; max-width: 350px; border-radius: 12px; display: block;">
+        <source src="video/ia.mp4" type="video/mp4">
+        O seu navegador não suporta vídeos.
+    </video>
+</div>
+        </div>
+    </section>
+
+    <!-- Catálogo de Produtos -->
+    <section id="cardapio" class="container catalog-section">
+        <div class="section-title">
+            <h2>Nosso Cardápio</h2>
+            <p>Nossos sanduíches naturais preparados com muito carinho</p>
+        </div>
+
+        <div class="filters-bar">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="search-input" placeholder="Buscar sanduíche...">
+            </div>
+           <div class="filters-bar">
+    <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="search-input" placeholder="Buscar sanduíche ou biscoito...">
+    </div>
+    
+    <!-- Nova Ferramenta de Filtro (Menu Suspenso) -->
+    <div class="category-select-wrapper">
+        <select id="category-select" class="category-select" style="padding: 10px 16px; border-radius: 8px; border: 1px solid var(--border-color, #ccc); background: var(--card-bg, #fff); color: var(--text, #333); font-size: 14px; cursor: pointer; outline: none;">
+            <option value="todos">✨ Todos os Itens</option>
+            <option value="frango">🥪 Sanduíche de Frango</option>
+            <option value="peru">🥪 Sanduíche de Peito de Peru</option>
+            <option value="atum">🥪 Sanduíche de Atum</option>
+            <option value="biscoitos">🍪 Biscoitinhos Caseiros de Queijo</option>
+            <option value="biscoito">🍪 Biscoitinhos Amanteigados</option>
+        </select>
+    </div>
+</div>
+        </div>
+
+        <div id="products-grid" class="products-grid">
+            <!-- Os produtos são injetados dinamicamente via JS -->
+        </div>
+    </section>
+
+    <!-- Mini Jogo Interativo: Montador de Sanduíche -->
+    <section id="joguinho" class="container game-section">
+        <div class="section-title">
+            <h2>Desafio Sanduba Fresh</h2>
+            <p>Encontre os pares dos ingredientes frescos e prove que é um mestre dos lanches!</p>
+        </div>
+        <div class="game-container">
+            <div class="game-stats">
+                <span>Tempo: <strong id="game-timer">45</strong>s</span>
+                <span>Pares Restantes: <strong id="pairs-left">4</strong></span>
+                <button id="start-game-btn" class="btn btn-primary" style="padding: 6px 16px; font-size: 14px;">Iniciar
+                    Jogo</button>
+            </div>
+            <div id="memory-board" class="memory-board">
+                <div class="game-placeholder-msg">Clique em "Iniciar Jogo" para começar o desafio!</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Avaliações e Sugestões -->
+    <section id="avaliacoes" class="container reviews-section">
+        <div class="section-title">
+            <h2>Avaliações e Sugestões</h2>
+            <p>Deixe sua nota, opinião ou sugestão para o Sanduba Fresh!</p>
+        </div>
+        <div class="reviews-wrapper">
+            <form id="review-form" class="review-form">
+                <h3>Envie seu comentário</h3>
+                <div class="form-group">
+                    <label for="reviewer-name">Seu Nome</label>
+                    <input type="text" id="reviewer-name" required placeholder="Digite seu nome">
+                </div>
+                <div class="form-group">
+                    <label for="review-type">Tipo</label>
+                    <select id="review-type">
+                        <option value="avaliacao">Avaliação</option>
+                        <option value="sugestao">Sugestão de Sabor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Sua Nota (Estrelas)</label>
+                    <div class="star-rating-input">
+                        <i class="fa-solid fa-star rating-star active" data-value="1"></i>
+                        <i class="fa-solid fa-star rating-star active" data-value="2"></i>
+                        <i class="fa-solid fa-star rating-star active" data-value="3"></i>
+                        <i class="fa-solid fa-star rating-star active" data-value="4"></i>
+                        <i class="fa-solid fa-star rating-star active" data-value="5"></i>
+                    </div>
+                    <input type="hidden" id="review-rating" value="5">
+                </div>
+                <div class="form-group">
+                    <label for="review-text">Mensagem</label>
+                    <textarea id="review-text" rows="4" required
+                        placeholder="O que achou do sanduíche ou qual sabor gostaria de sugerir?"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar Avaliação</button>
+            </form>
+            <div class="reviews-list-container">
+                <h3>Opiniões dos Clientes</h3>
+                <div id="reviews-list" class="reviews-list">
+                    <!-- Preenchido dinamicamente -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <i class="fa-solid fa-seedling"></i>
+                <span>Sanduba Fresh</span>
+            </div>
+            <p>&copy; 2026 Sanduba Fresh. Todos os direitos reservados. Retiradas combinadas via WhatsApp.</p>
+        </div>
+    </footer>
+
+    <!-- Carrinho / Modal do Carrinho -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Seu Carrinho</h3>
+                <button id="close-cart" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="cart-items" class="cart-items">
+                    <!-- Itens do carrinho -->
+                </div>
+                <div class="cart-summary">
+                    <div class="summary-line">
+                        <span>Subtotal:</span>
+                        <span id="cart-subtotal">R$ 0,00</span>
+                    </div>
+                    <div class="summary-line total">
+                        <span>Total:</span>
+                        <span id="cart-total">R$ 0,00</span>
+                    </div>
+                </div>
+                <div class="pickup-notice" style="margin-bottom: 12px;">
+                    <i class="fa-solid fa-store"></i>
+                    <p><strong>Atenção:</strong> A loja não trabalha com entregas. O local e o horário da retirada serão
+                        combinados diretamente pelo WhatsApp.</p>
+                </div>
+                <div class="pix-notice"
+                    style="background-color: rgba(244, 208, 63, 0.15); padding: 12px; border-radius: 8px; font-size: 13px; color: var(--text);">
+                    <i class="fa-solid fa-qrcode" style="color: var(--primary); margin-right: 5px;"></i>
+                    <p><strong>Pagamento Pix:</strong> Chave Pix: <code
+                            style="user-select: all; background: var(--bg); padding: 2px 4px; border-radius: 4px; font-family: monospace;">e990fe3d-0e10-42fe-b511-fa99742c86f3</code>
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="checkout-btn" class="btn btn-primary btn-block">Finalizar Pedido via WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal do Painel Administrativo -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content admin-content">
+            <div class="modal-header">
+                <h3>Painel Administrativo</h3>
+                <button id="close-admin" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body" id="admin-body">
+                <!-- Conteúdo gerido por script.js -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
