@@ -583,3 +583,11 @@ document.addEventListener('DOMContentLoaded', () => {
     setupModals();
     setupAdminPanel(); // 👈 Garante que esta linha está aqui!
 });
+function copiarChavePix() {
+    const chave = document.getElementById("pix-chave").innerText;
+    navigator.clipboard.writeText(chave).then(() => {
+        alert("Chave Pix copiada! Abra a app do seu banco para pagar.");
+    }).catch(err => {
+        console.error("Erro ao copiar chave Pix: ", err);
+    });
+}

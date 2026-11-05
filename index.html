@@ -7,12 +7,12 @@
     <title>Sanduba Fresh — Seu sanduíche, seu momento.</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-   <!-- Biblioteca do Supabase -->
+    <!-- Biblioteca do Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
-    <!-- O teu script principal -->
-    
+<!-- O teu script principal -->
+
 <body data-theme="light">
     <!-- Cabeçalho -->
     <header class="header">
@@ -51,12 +51,13 @@
                     <a href="#joguinho" class="btn btn-outline">Jogar</a>
                 </div>
             </div>
-           <div class="hero-image">
-    <video autoplay controls loop playsinline style="width: 350%;height: 350; max-width: 350px; border-radius: 12px; display: block;">
-        <source src="video/ia.mp4" type="video/mp4">
-        O seu navegador não suporta vídeos.
-    </video>
-</div>
+            <div class="hero-image">
+                <video autoplay controls loop playsinline
+                    style="width: 350%;height: 350; max-width: 350px; border-radius: 12px; display: block;">
+                    <source src="video/ia.mp4" type="video/mp4">
+                    O seu navegador não suporta vídeos.
+                </video>
+            </div>
         </div>
     </section>
 
@@ -72,20 +73,21 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" id="search-input" placeholder="Buscar sanduíche...">
             </div>
-         
-    
-    <!-- Nova Ferramenta de Filtro (Menu Suspenso) -->
-    <div class="category-select-wrapper">
-        <select id="category-select" class="category-select" style="padding: 10px 16px; border-radius: 8px; border: 1px solid var(--border-color, #ccc); background: var(--card-bg, #fff); color: var(--text, #333); font-size: 14px; cursor: pointer; outline: none;">
-            <option value="todos">✨ Todos os Itens</option>
-            <option value="frango">🥪 Sanduíche de Frango</option>
-            <option value="peru">🥪 Sanduíche de Peito de Peru</option>
-            <option value="atum">🥪 Sanduíche de Atum</option>
-            <option value="biscoitos">🍪 Biscoitinhos Caseiros de Queijo</option>
-            <option value="biscoito">🍪 Biscoitinhos Amanteigados</option>
-        </select>
-    </div>
-</div>
+
+
+            <!-- Nova Ferramenta de Filtro (Menu Suspenso) -->
+            <div class="category-select-wrapper">
+                <select id="category-select" class="category-select"
+                    style="padding: 10px 16px; border-radius: 8px; border: 1px solid var(--border-color, #ccc); background: var(--card-bg, #fff); color: var(--text, #333); font-size: 14px; cursor: pointer; outline: none;">
+                    <option value="todos">✨ Todos os Itens</option>
+                    <option value="frango">🥪 Sanduíche de Frango</option>
+                    <option value="peru">🥪 Sanduíche de Peito de Peru</option>
+                    <option value="atum">🥪 Sanduíche de Atum</option>
+                    <option value="biscoitos">🍪 Biscoitinhos Caseiros de Queijo</option>
+                    <option value="biscoito">🍪 Biscoitinhos Amanteigados</option>
+                </select>
+            </div>
+        </div>
         </div>
 
         <div id="products-grid" class="products-grid">
@@ -196,13 +198,15 @@
                     <p><strong>Atenção:</strong> A loja não trabalha com entregas. O local e o horário da retirada serão
                         combinados diretamente pelo WhatsApp.</p>
                 </div>
-                <div class="pix-notice"
-                    style="background-color: rgba(244, 208, 63, 0.15); padding: 12px; border-radius: 8px; font-size: 13px; color: var(--text);">
-                    <i class="fa-solid fa-qrcode" style="color: var(--primary); margin-right: 5px;"></i>
-                    <p><strong>Pagamento Pix:</strong> Chave Pix: <code
-                            style="user-select: all; background: var(--bg); padding: 2px 4px; border-radius: 4px; font-family: monospace;">e990fe3d-0e10-42fe-b511-fa99742c86f3</code>
-                    </p>
-                </div>
+      <div class="pix-box" style="background: rgba(0, 0, 0, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0; display: flex; flex-direction: column; gap: 5px;">
+    <span style="font-size: 13px; color: #fff;">Pagamento Pix: Chave Pix</span>
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+        <code id="pix-chave" style="font-size: 12px; word-break: break-all; background: rgba(255,255,255,0.1); padding: 4px; border-radius: 4px; color: #fff;">e990fe3d-0e10-42fe-b511-fa99742c86f3</code>
+        <button onclick="copiarChavePix()" type="button" style="padding: 6px 12px; cursor: pointer; border-radius: 4px; border: none; background-color: #2e7d32; color: white; font-weight: bold; white-space: nowrap;">
+            Copiar
+        </button>
+    </div>
+</div>
             </div>
             <div class="modal-footer">
                 <button id="checkout-btn" class="btn btn-primary btn-block">Finalizar Pedido via WhatsApp</button>
