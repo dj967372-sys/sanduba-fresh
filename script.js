@@ -583,3 +583,17 @@ document.addEventListener('DOMContentLoaded', () => {
     setupModals();
     setupAdminPanel(); // 👈 Garante que esta linha está aqui!
 });
+// Função para copiar a Chave Pix
+function copiarChavePix() {
+    const chaveElemento = document.getElementById("pix-chave");
+    
+    if (chaveElemento) {
+        const chaveTexto = chaveElemento.innerText;
+        
+        navigator.clipboard.writeText(chaveTexto).then(() => {
+            alert("Chave Pix copiada com sucesso!");
+        }).catch(err => {
+            console.error("Erro ao copiar a chave Pix: ", err);
+        });
+    }
+}
