@@ -584,10 +584,25 @@ document.addEventListener('DOMContentLoaded', () => {
     setupAdminPanel(); // 👈 Garante que esta linha está aqui!
 });
 function copiarChavePix() {
-    const chave = document.getElementById("pix-chave").innerText;
+    const elementoChave = document.getElementById("pix-chave");
+    if (!elementoChave) return;
+    
+    const chave = elementoChave.innerText;
+    
     navigator.clipboard.writeText(chave).then(() => {
-        alert("Chave Pix copiada! Abra a app do seu banco para pagar.");
+        alert("Chave Pix copiada com sucesso! Abra o app do seu banco para pagar.");
     }).catch(err => {
-        console.error("Erro ao copiar chave Pix: ", err);
+        // Método alternativo de segurança caso o navegador bloqueie
+        const textarea = document.createElement("textarea");
+        textarea.value = chave;
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            document.execCommand("copy");
+            alert("Chave Pix copiada com sucesso!");
+        } catch (e) {
+            alert("Não foi possível copiar automaticamente. Selecione a chave manualmente.");
+        }
+        document.body.removeChild(textarea);
     });
 }
